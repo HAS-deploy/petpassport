@@ -1,0 +1,31 @@
+## Xcode
+build/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcuserstate
+*.xcuserdatad/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## xcodegen — regenerated from project.yml
+*.xcodeproj/
+
+## macOS
+.DS_Store
+
+## Swift
+Package.resolved
+.build/
+.swiftpm/
+
+## CI / local secrets
+.env
+.env.*
+!.env.example
+
+## App Factory artifacts
+/tmp-*
+/screenshots/_drafts/

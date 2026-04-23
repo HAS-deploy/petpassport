@@ -1,0 +1,84 @@
+name: PetPassport
+options:
+  bundleIdPrefix: com.mypetpassport
+  deploymentTarget:
+    iOS: "16.0"
+  minimumXcodeGenVersion: "2.38.0"
+
+settings:
+  base:
+    DEVELOPMENT_TEAM: NH2XFPC9KN
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.9"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_USER_SCRIPT_SANDBOXING: "NO"
+
+targets:
+  PetPassport:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: PetPassport
+        excludes:
+          - Resources/Configuration.storekit
+    resources:
+      - path: PetPassport/Resources/Configuration.storekit
+    info:
+      path: PetPassport/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: Pet Passport
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        LSRequiresIPhoneOS: true
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UIRequiredDeviceCapabilities:
+          - arm64
+        UIUserInterfaceStyle: Automatic
+        ITSAppUsesNonExemptEncryption: false
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mypetpassport.app
+        PRODUCT_NAME: PetPassport
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TARGETED_DEVICE_FAMILY: "1,2"
+        INFOPLIST_KEY_CFBundleDisplayName: Pet Passport
+        GENERATE_INFOPLIST_FILE: "NO"
+
+  PetPassportTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: PetPassportTests
+    dependencies:
+      - target: PetPassport
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mypetpassport.app.tests
+        GENERATE_INFOPLIST_FILE: "YES"
+
+schemes:
+  PetPassport:
+    build:
+      targets:
+        PetPassport: all
+    test:
+      targets:
+        - PetPassportTests
+      gatherCoverageData: true
+    run:
+      config: Debug
+    archive:
+      config: Release

@@ -1,0 +1,32 @@
+{
+  "identifier" : "PETPASSPORT-STOREKIT-CONFIG",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "9.99",
+      "familyShareable" : false,
+      "internalID" : "PP_PRO_LIFETIME",
+      "localizations" : [
+        {
+          "description" : "Unlimited destinations, detailed document templates, PDF export, and up to 5 pet profiles. One-time purchase.",
+          "displayName" : "Pet Passport Pro",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.mypetpassport.app.pro.lifetime",
+      "referenceName" : "Pro Lifetime",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_compatibilityTimeRate" : 1,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : []
+  },
+  "subscriptionGroups" : [],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}
