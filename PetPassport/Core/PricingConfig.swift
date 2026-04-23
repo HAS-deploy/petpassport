@@ -7,11 +7,11 @@ enum PricingConfig {
     static let proLifetimeProductID = "com.mypetpassport.app.pro.lifetime"
 
     /// What unlocks at Pro. Used by the paywall and benefits list.
+    /// Keep each line to something the code actually delivers — reviewers
+    /// cross-check benefit claims against shipped behavior.
     static let proBenefits: [String] = [
         "Timelines for every supported destination",
         "Detailed document + vaccination checklists",
-        "Export compliance packet as PDF",
-        "Up to 5 pet profiles",
         "Free updates as regulations change"
     ]
 

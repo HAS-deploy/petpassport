@@ -35,9 +35,9 @@ struct HomeView: View {
                         PaywallView()
                     } label: {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("Unlock all destinations")
+                            Text("Add more destinations")
                                 .font(.headline)
-                            Text("Free trial covers Canada, Mexico, and the UK. Pro adds 7+ more.")
+                            Text("Canada, Mexico, and the UK are included free. Pro adds 7+ more.")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }

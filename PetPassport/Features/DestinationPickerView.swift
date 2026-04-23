@@ -7,7 +7,7 @@ struct DestinationPickerView: View {
 
     var body: some View {
         List {
-            Section("Included with free trial") {
+            Section("Included free") {
                 ForEach(DestinationCatalog.all.filter { $0.requiresFreeTier }) { d in
                     NavigationLink {
                         TimelineSetupView(pet: pet, destination: d)

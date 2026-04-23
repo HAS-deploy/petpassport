@@ -16,6 +16,24 @@ final class PurchaseManager: ObservableObject {
         UserDefaults.standard.bool(forKey: proKey)
     }
 
+    /// Long-lived transaction observer. Started once in `init()` so we never
+    /// miss a StoreKit redelivery (parental approval completing later, a
+    /// purchase on another device syncing down, or an orphan from a previous
+    /// run). Retained for the app's lifetime.
+    private var updatesTask: Task<Void, Never>?
+
+    init() {
+        updatesTask = Task { [weak self] in
+            for await update in Transaction.updates {
+                await self?.handle(verificationResult: update)
+            }
+        }
+    }
+
+    deinit {
+        updatesTask?.cancel()
+    }
+
     func loadProducts() async {
         do {
             let products = try await Product.products(for: [PricingConfig.proLifetimeProductID])
@@ -23,15 +41,6 @@ final class PurchaseManager: ObservableObject {
             await refreshEntitlement()
         } catch {
             lastError = "Could not load the store right now."
-        }
-    }
-
-    /// Long-lived listener for StoreKit transactions that arrive outside a
-    /// direct `purchase` call (e.g. parental approval completes later,
-    /// or a purchase on another device syncs down).
-    func observeTransactions() async {
-        for await update in Transaction.updates {
-            await handle(verificationResult: update)
         }
     }
 

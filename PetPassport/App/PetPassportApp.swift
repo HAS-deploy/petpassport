@@ -13,7 +13,6 @@ struct PetPassportApp: App {
                 .environmentObject(petStore)
                 .environmentObject(settings)
                 .task { await purchases.loadProducts() }
-                .task { await purchases.observeTransactions() }
         }
     }
 }
