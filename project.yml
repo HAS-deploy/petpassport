@@ -28,7 +28,7 @@ targets:
     info:
       path: PetPassport/Resources/Info.plist
       properties:
-        CFBundleDisplayName: Pet Passport
+        CFBundleDisplayName: My Pet Passport
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         LSRequiresIPhoneOS: true
@@ -53,7 +53,7 @@ targets:
         PRODUCT_NAME: PetPassport
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         TARGETED_DEVICE_FAMILY: "1,2"
-        INFOPLIST_KEY_CFBundleDisplayName: Pet Passport
+        INFOPLIST_KEY_CFBundleDisplayName: My Pet Passport
         GENERATE_INFOPLIST_FILE: "NO"
 
   PetPassportTests:

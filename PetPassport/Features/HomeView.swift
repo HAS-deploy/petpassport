@@ -45,7 +45,7 @@ struct HomeView: View {
                 }
             }
         }
-        .navigationTitle("Pet Passport")
+        .navigationTitle("My Pet Passport")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {

@@ -12,7 +12,7 @@ struct OnboardingView: View {
                 .frame(width: 96, height: 96)
                 .foregroundStyle(.tint)
             VStack(spacing: 8) {
-                Text("Pet Passport")
+                Text("My Pet Passport")
                     .font(.largeTitle.bold())
                 Text("Plan your pet's international trip without guessing the paperwork.")
                     .font(.body)

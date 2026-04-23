@@ -13,7 +13,7 @@ struct PaywallView: View {
                     .foregroundStyle(.tint)
 
                 VStack(spacing: 6) {
-                    Text("Pet Passport Pro")
+                    Text("My Pet Passport Pro")
                         .font(.title.bold())
                     Text(PricingConfig.proHeadline)
                         .font(.subheadline).foregroundStyle(.secondary)
