@@ -27,7 +27,7 @@ xcodebuild -project PetPassport.xcodeproj -scheme PetPassport \
 ## Product model
 
 - **Free**: Canada, Mexico, United Kingdom — the three most-searched US-outbound destinations.
-- **Pro ($9.99 lifetime)**: everything else (Japan, Australia, Germany, France, New Zealand, Ireland, Switzerland so far), PDF export, up to 5 pet profiles.
+- **Pro ($9.99 lifetime)**: everything else (Japan, Australia, Germany, France, New Zealand, Ireland, Switzerland so far).
 
 StoreKit product ID: `com.mypetpassport.app.pro.lifetime` — non-consumable.
 

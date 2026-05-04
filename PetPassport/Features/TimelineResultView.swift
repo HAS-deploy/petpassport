@@ -5,8 +5,17 @@ struct TimelineResultView: View {
     let destination: Destination
     let departure: Date
 
+    @EnvironmentObject private var settings: SettingsStore
+    @State private var scheduledCount: Int = 0
+    @State private var permissionDenied: Bool = false
+    @State private var generatedTrigger = 0
+
     private var items: [TimelineItem] {
         TimelineBuilder.build(destination: destination, pet: pet, departure: departure)
+    }
+
+    private var tripKey: ReminderScheduler.TripKey {
+        .init(petId: pet.id, destinationId: destination.id)
     }
 
     var body: some View {
@@ -21,6 +30,33 @@ struct TimelineResultView: View {
                 }
                 .padding(.vertical, 4)
             }
+            if settings.remindersEnabled && scheduledCount > 0 {
+                Section {
+                    Label {
+                        Text("\(scheduledCount) reminder\(scheduledCount == 1 ? "" : "s") scheduled for this trip.")
+                            .font(.footnote)
+                    } icon: {
+                        Image(systemName: "bell.badge.fill")
+                            .foregroundStyle(.tint)
+                    }
+                }
+            }
+            if settings.remindersEnabled && permissionDenied {
+                Section {
+                    Label {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Notifications are off")
+                                .font(.footnote.bold())
+                            Text("Open Settings → Notifications → My Pet Passport to turn deadline reminders on.")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    } icon: {
+                        Image(systemName: "bell.slash.fill")
+                            .foregroundStyle(.orange)
+                    }
+                }
+            }
             Section("Timeline") {
                 ForEach(items) { item in
                     TimelineRow(item: item)
@@ -34,6 +70,46 @@ struct TimelineResultView: View {
         }
         .navigationTitle("Compliance Timeline")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                ShareLink(
+                    item: TimelineShareText.summary(
+                        pet: pet,
+                        destination: destination,
+                        departure: departure,
+                        items: items
+                    ),
+                    subject: Text("\(pet.name) — \(destination.name) compliance timeline")
+                ) {
+                    Label("Share", systemImage: "square.and.arrow.up")
+                }
+            }
+        }
+        .task {
+            // Treat first appearance of TimelineResultView as the
+            // "finalization" moment. This is the first time we'll ever
+            // ask for notification permission.
+            await reconcileReminders()
+            generatedTrigger &+= 1
+        }
+        .hapticSuccess(trigger: generatedTrigger)
+        .onChange(of: departure) { _ in
+            Task { await reconcileReminders() }
+        }
+        .onChange(of: destination) { _ in
+            Task { await reconcileReminders() }
+        }
+    }
+
+    private func reconcileReminders() async {
+        guard settings.remindersEnabled else {
+            await ReminderScheduler.cancelAll(for: tripKey)
+            scheduledCount = 0
+            return
+        }
+        let count = await ReminderScheduler.apply(items: items, tripKey: tripKey)
+        scheduledCount = count
+        permissionDenied = await ReminderScheduler.isDenied()
     }
 }
 

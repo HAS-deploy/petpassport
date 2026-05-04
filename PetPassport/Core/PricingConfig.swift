@@ -11,7 +11,7 @@ enum PricingConfig {
     /// cross-check benefit claims against shipped behavior.
     static let proBenefits: [String] = [
         "Timelines for every supported destination",
-        "Detailed document + vaccination checklists",
+        "Reminders for every deadline",
         "Free updates as regulations change"
     ]
 
