@@ -8,7 +8,24 @@ struct TimelineItem: Identifiable, Hashable {
     let title: String
     let detail: String
     let citation: String?
+    let citationURL: URL?
     let isPast: Bool
+
+    init(id: String,
+         dueBy: Date,
+         title: String,
+         detail: String,
+         citation: String?,
+         citationURL: URL? = nil,
+         isPast: Bool) {
+        self.id = id
+        self.dueBy = dueBy
+        self.title = title
+        self.detail = detail
+        self.citation = citation
+        self.citationURL = citationURL
+        self.isPast = isPast
+    }
 }
 
 /// Pure-logic timeline builder. All policy lives in `Destination` — this
@@ -32,6 +49,7 @@ enum TimelineBuilder {
                 title: step.title,
                 detail: filledDetail(step: step, pet: pet),
                 citation: step.citation,
+                citationURL: step.citationURL,
                 isPast: due < now
             )
         }

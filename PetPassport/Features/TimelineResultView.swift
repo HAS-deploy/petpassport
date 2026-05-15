@@ -133,9 +133,20 @@ private struct TimelineRow: View {
                 Text(item.detail).font(.caption)
                     .foregroundStyle(.secondary)
                 if let cite = item.citation {
-                    Text(cite)
-                        .font(.caption2)
-                        .foregroundStyle(.tertiary)
+                    if let url = item.citationURL {
+                        Link(destination: url) {
+                            HStack(spacing: 3) {
+                                Text(cite)
+                                Image(systemName: "arrow.up.right.square")
+                            }
+                            .font(.caption2)
+                        }
+                        .foregroundStyle(.tint)
+                    } else {
+                        Text(cite)
+                            .font(.caption2)
+                            .foregroundStyle(.tertiary)
+                    }
                 }
             }
         }

@@ -113,7 +113,11 @@ struct SettingsView: View {
         let prefix = "petpassport.reminder."
         guard identifier.hasPrefix(prefix) else { return nil }
         let trimmed = String(identifier.dropFirst(prefix.count))
-        let parts = trimmed.split(separator: ".", maxSplits: 2, omittingEmptySubsequences: false)
+        // Identifier has 4 dot-separated components after the prefix:
+        // <petUUID>.<destinationId>.<itemId>.d<offset>. Use maxSplits: 4 so
+        // any future `.` inside itemId still keeps the first two components
+        // (petUUID and destinationId) intact and parseable.
+        let parts = trimmed.split(separator: ".", maxSplits: 4, omittingEmptySubsequences: false)
         guard parts.count >= 2 else { return nil }
         let petIdString = String(parts[0])
         let destinationId = String(parts[1])
